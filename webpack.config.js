@@ -3,10 +3,14 @@ const webpack = require("webpack");
 const { ModuleFederationPlugin } = webpack.container;
 const pkg = require("./package.json");
 
-// Variables for remotes/hosts
+// Use "container if host", otherwise use something like "remote_home"
 const _packageName = "container";
+
+// 3000 for Host, increment for each remote (this is for local dev)
 const _port = 3000;
-const _publicPath = "/";
+
+// This must be set to "/" for host, and "auto" for remotes
+const _publicPath = _packageName === "container" ? "/" : "auto";
 
 module.exports = (env, argv) => {
 	return {
